@@ -1,7 +1,7 @@
 package Models;
 
 import Utils.Resolution;
-
+@SuppressWarnings("unused")
 public class Monitor extends Product{
 
     private Resolution Res;

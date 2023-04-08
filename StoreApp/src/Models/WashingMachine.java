@@ -1,26 +1,24 @@
 package Models;
 @SuppressWarnings("unused")
-public class Fridge extends Product{
+public class WashingMachine extends Product{
 
-    private int Size; //this will represent the actual Size in liters of the fridge
+    private int Size; //this will represent the actual size in liters of the fridge
     private int Width;
     private int Height;
     private int Depth;
-    private boolean HasFreezer;
 
     @Override
     public String getProductType() {
-        return "Fridge";
+        return "Washing Machine";
     }
 
-    public Fridge(int productId, int price, String name, int size, int width, int height,
-                  int depth, boolean hasFreezer) {
+    public WashingMachine(int productId, int price, String name, int size, int width, int height,
+                          int depth) {
         super(productId, price, name);
         Size = size;
         Width = width;
         Height = height;
         Depth = depth;
-        HasFreezer = hasFreezer;
     }
 
     public int getSize() {
@@ -36,7 +34,7 @@ public class Fridge extends Product{
     }
 
     public void setWidth(int width) {
-        this.Width = width;
+        Width = width;
     }
 
     public int getHeight() {
@@ -44,7 +42,7 @@ public class Fridge extends Product{
     }
 
     public void setHeight(int height) {
-        this.Height = height;
+        Height = height;
     }
 
     public int getDepth() {
@@ -52,14 +50,6 @@ public class Fridge extends Product{
     }
 
     public void setDepth(int depth) {
-        this.Depth = depth;
-    }
-
-    public boolean getHasFreezer() {
-        return HasFreezer;
-    }
-
-    public void setHasFreezer(boolean hasFreezer) {
-        HasFreezer = hasFreezer;
+        Depth = depth;
     }
 }

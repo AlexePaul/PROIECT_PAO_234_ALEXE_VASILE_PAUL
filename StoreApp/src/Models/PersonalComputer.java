@@ -1,5 +1,5 @@
 package Models;
-
+@SuppressWarnings("unused")
 public class PersonalComputer extends Product {
 
     private int Ram; //will be stored in Gb

@@ -1,7 +1,7 @@
 package Models;
 
 import Utils.Resolution;
-
+@SuppressWarnings("unused")
 public class Phone extends Product {
     private String CPU;
     private Resolution ScreenResolution;
