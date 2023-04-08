@@ -18,6 +18,14 @@ public class StoreService implements GenericService<Store> {
        Stores.add(StoreToAdd);
     }
     public List<Pair<Integer, Product>> AddStock(int storeId, Product product, int count){
+        boolean checkStore = false;
+        for(Store st : Stores)
+            if (st.getStoreId() == storeId) {
+                checkStore = true;
+                break;
+            }
+        if(!checkStore)
+            return null;
         if(!Stock.containsKey(storeId)){
             List<Pair<Integer, Product>>  s = new ArrayList<>();
             s.add(new Pair<>(count, product));
