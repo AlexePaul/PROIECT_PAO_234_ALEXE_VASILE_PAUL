@@ -1,10 +1,13 @@
 package Models;
 
-public class Product {
+abstract public class Product {
 
-    private int ProductId;
-    private int Price;
-    private String Name;
+    protected int ProductId;
+    protected int Price;
+    protected String Name;
+
+    public Product() {
+    }
 
     public Product(int productId, int price, String name) {
         ProductId = productId;
@@ -12,6 +15,7 @@ public class Product {
         Name = name;
     }
 
+    public abstract String getProductType();
     public String getName() {
         return Name;
     }
