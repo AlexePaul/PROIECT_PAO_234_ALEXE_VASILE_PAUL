@@ -1,5 +1,5 @@
 package Models;
-
+@SuppressWarnings("unused")
 public class VacuumCleaner extends Product{
 
     private int Weight;

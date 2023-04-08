@@ -1,5 +1,5 @@
 package Models;
-
+@SuppressWarnings("unused")
 public class Peripheral extends Product{
 
     private boolean Wireless;

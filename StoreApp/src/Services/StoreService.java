@@ -14,8 +14,25 @@ public class StoreService implements GenericService<Store> {
     public List<Store> GetAll(){
         return Stores;
     }
-    public void AddStore(Store StoreToAdd){
-       Stores.add(StoreToAdd);
+
+    public boolean CheckStore(int storeId){
+        for(Store st : Stores)
+            if (st.getStoreId() == storeId) {
+                return true;
+            }
+        return false;
+    }
+    public boolean AddStore(Store StoreToAdd){
+        boolean checkStore = false;
+        for(Store st : Stores)
+            if (st == StoreToAdd) {
+                checkStore = true;
+                break;
+            }
+        if(checkStore)
+            return false;
+        Stores.add(StoreToAdd);
+        return true;
     }
     public List<Pair<Integer, Product>> AddStock(int storeId, Product product, int count){
         boolean checkStore = false;
@@ -47,5 +64,9 @@ public class StoreService implements GenericService<Store> {
             }
             return Stock.replace(storeId,s);
         }
+    }
+
+    public List<Pair<Integer, Product>> CheckStock(int storeId){
+        return Stock.get(storeId);
     }
 }

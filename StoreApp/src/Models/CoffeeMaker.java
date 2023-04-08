@@ -1,5 +1,5 @@
 package Models;
-
+@SuppressWarnings("unused")
 public class CoffeeMaker extends Product{
 
     private int WaterTankSize;
