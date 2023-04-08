@@ -1,8 +1,8 @@
 package Utils;
 
 public class Pair <Type1, Type2>{
-    Type1 a;
-    Type2 b;
+    private Type1 a;
+    private Type2 b;
 
     public Pair(Type1 a, Type2 b) {
         this.a = a;
