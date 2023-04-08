@@ -1,5 +1,5 @@
 package Models;
-
+@SuppressWarnings("unused")
 abstract public class Product {
 
     protected int ProductId;

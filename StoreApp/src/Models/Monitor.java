@@ -21,8 +21,7 @@ public class Monitor extends Product{
     }
 
     public Monitor(int productId, int price, String name, int pixelHeight, int pixelWidth,
-                   int refreshRate,
-                   int size) {
+                   int refreshRate, int size) {
         super(productId, price, name);
         Res = new Resolution(pixelHeight, pixelWidth);
         RefreshRate = refreshRate;
