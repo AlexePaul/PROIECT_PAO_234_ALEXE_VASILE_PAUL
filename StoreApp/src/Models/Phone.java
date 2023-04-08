@@ -2,7 +2,7 @@ package Models;
 
 import Utils.Resolution;
 
-public class Phone extends Product{
+public class Phone extends Product {
     private String CPU;
     private Resolution ScreenResolution;
     private int ScreenRefreshRate;
@@ -10,12 +10,14 @@ public class Phone extends Product{
     private int Storage; //will be stored in Gb
 
     private String Color;
+
     @Override
     public String getProductType() {
         return "Phone";
     }
 
-    public Phone(int productId, int price, String name, String CPU, Resolution screenResolution, int screenRefreshRate, int storage, String color) {
+    public Phone(int productId, int price, String name, String CPU, Resolution screenResolution,
+                 int screenRefreshRate, int storage, String color) {
         super(productId, price, name);
         this.CPU = CPU;
         ScreenResolution = screenResolution;
@@ -24,7 +26,8 @@ public class Phone extends Product{
         Color = color;
     }
 
-    public Phone(int productId, int price, String name, String CPU, int screenHeight, int screenWidth, int screenRefreshRate, int storage, String color) {
+    public Phone(int productId, int price, String name, String CPU, int screenHeight,
+                 int screenWidth, int screenRefreshRate, int storage, String color) {
         super(productId, price, name);
         this.CPU = CPU;
         ScreenResolution = new Resolution(screenHeight, screenWidth);

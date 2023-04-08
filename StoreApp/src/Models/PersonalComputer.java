@@ -1,6 +1,6 @@
 package Models;
 
-public class PersonalComputer extends Product{
+public class PersonalComputer extends Product {
 
     private int Ram; //will be stored in Gb
     private int Storage; //will be stored in Gb
@@ -10,10 +10,11 @@ public class PersonalComputer extends Product{
 
     @Override
     public String getProductType() {
-        return "PersonalComputer";
+        return "PersonalComputer/Laptop";
     }
 
-    public PersonalComputer(int productId, int price, String name, int ram, int storage, String CPU, String GPU, String PSU) {
+    public PersonalComputer(int productId, int price, String name, int ram, int storage, String CPU,
+                            String GPU, String PSU) {
         super(productId, price, name);
         Ram = ram;
         Storage = storage;
