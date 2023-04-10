@@ -4,10 +4,10 @@ import Models.Product;
 import Models.Store;
 import Utils.Pair;
 
-import java.util.ArrayList;
-import java.util.TreeMap;
-import java.util.List;
+import java.util.*;
 
+import static java.lang.Math.max;
+@SuppressWarnings("unused")
 public class StoreService implements GenericService<Store> {
     List<Store> Stores = new ArrayList<>();
     TreeMap<Integer, List<Pair<Integer, Product>>> Stock = new TreeMap<>();
@@ -69,4 +69,58 @@ public class StoreService implements GenericService<Store> {
     public List<Pair<Integer, Product>> CheckStock(int storeId){
         return Stock.get(storeId);
     }
+
+    public Set<Product> GetStockGraterThan0(int storeId){
+        if(!CheckStore(storeId))
+            return null;
+        List<Pair<Integer, Product>> s = Stock.get(storeId);
+        Set<Product> setP = new HashSet<>();
+        for(Pair<Integer, Product> st : s){
+            if(st.First() > 0)
+                setP.add(st.Second());
+        }
+        return setP;
+    }
+
+    public void checkStock(int storeId){ //this will remove a product from the list if it's stock
+        // is 0
+        if (!CheckStore(storeId))
+            return;
+        List<Pair<Integer, Product>> s = Stock.get(storeId);
+        for(int i = 0; i < s.size(); i++){
+            if(s.get(i).First() == 0) {
+                s.remove(i);
+                i = 0;
+            }
+        }
+    }
+
+    public boolean removeStock(int storeId, int productId, int count){
+        if(!CheckStore(storeId))
+            return false;
+        List<Pair<Integer, Product>> s = Stock.get(storeId);
+        for(Pair<Integer, Product> st : s) {
+            if(st.Second().getProductId() == productId){
+                st.SetFirst(max(0,st.First()-count));
+                checkStock(storeId);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkStockOfAProduct(int storeId, int productId) {
+        if (!CheckStore(storeId))
+            return false;
+        List<Pair<Integer, Product>> s = Stock.get(storeId);
+        for (Pair<Integer, Product> st : s) {
+            if (st.Second().getProductId() == productId && st.First() > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int numberOfStores() {return Stores.size();}
+    public int numberOfProductsInStore(int storeId){return Stock.get(storeId).size();}
 }
