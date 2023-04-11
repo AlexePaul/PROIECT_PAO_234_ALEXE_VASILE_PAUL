@@ -8,6 +8,7 @@
 - Aplicatia contine 2 Utilitare:
     * Clasa Pair<T1,T2> utilizata pentru a crea o pereche de 2 variabile de tipul T1 si T2
     * Clasa Resolution care reprezinta o rezolutie pe care o poate avea un telefon/monitor sau pe viitor daca se mai adauga clase, se pot folosi de aceasta
+- Aplicatia are de asemenea si o clasa de exceptii folosita in cadrul serviciilor pentru a semanala diferite introduceri gresite de date
 - Aplicatia contine o interfata GenericService cu ajutorul careia se vor implementa toate celelalte servicii
 - Aplicatia contine o singura clasa serviciu:
     * Clasa StoreService ce foloseste interfata GenericService. In acest serviciu se gasesc functii menite pentru a putea adauga/scadea stoc dintr-un magazin anume dar si pentru a adauga un magazin
