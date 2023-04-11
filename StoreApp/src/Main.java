@@ -1,3 +1,4 @@
+import Exceptions.ExceptionInvalidValue;
 import Models.*;
 import Services.StoreService;
 import Utils.Pair;
@@ -200,18 +201,23 @@ public class Main {
             System.out.println("10. Add a WashingMachine");
             System.out.println("11. Check all the products in a Store");
             input = scanner.nextInt();
-            switch (input) {
-                case 1 -> AddStore();
-                case 2 -> getAllStores();
-                case 3 -> AddProduct("Coffee");
-                case 4 -> AddProduct("Fridge");
-                case 5 -> AddProduct("Monitor");
-                case 6 -> AddProduct("Peripheral");
-                case 7 -> AddProduct("PersonalComputer");
-                case 8 -> AddProduct("Phone");
-                case 9 -> AddProduct("VacuumCleaner");
-                case 10 -> AddProduct("WashingMachine");
-                case 11 -> getAllProducts();
+            try {
+                switch (input) {
+                    case 1 -> AddStore();
+                    case 2 -> getAllStores();
+                    case 3 -> AddProduct("Coffee");
+                    case 4 -> AddProduct("Fridge");
+                    case 5 -> AddProduct("Monitor");
+                    case 6 -> AddProduct("Peripheral");
+                    case 7 -> AddProduct("PersonalComputer");
+                    case 8 -> AddProduct("Phone");
+                    case 9 -> AddProduct("VacuumCleaner");
+                    case 10 -> AddProduct("WashingMachine");
+                    case 11 -> getAllProducts();
+                }
+            }
+            catch(ExceptionInvalidValue m){
+                System.out.println(m);
             }
             for(int clear = 0; clear < 1000; clear++)
             {

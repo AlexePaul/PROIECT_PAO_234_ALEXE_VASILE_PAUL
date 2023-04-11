@@ -1,5 +1,6 @@
 package Services;
 
+import Exceptions.ExceptionInvalidValue;
 import Models.Product;
 import Models.Store;
 import Utils.Pair;
@@ -11,6 +12,7 @@ import static java.lang.Math.max;
 public class StoreService implements GenericService<Store> {
     List<Store> Stores = new ArrayList<>();
     TreeMap<Integer, List<Pair<Integer, Product>>> Stock = new TreeMap<>();
+    @Override
     public List<Store> GetAll(){
         return Stores;
     }
@@ -25,9 +27,9 @@ public class StoreService implements GenericService<Store> {
     public boolean AddStore(Store StoreToAdd){
         boolean checkStore = false;
         for(Store st : Stores)
-            if (st == StoreToAdd) {
+            if (st.getStoreId() == StoreToAdd.getStoreId()) {
                 checkStore = true;
-                break;
+                throw new ExceptionInvalidValue("There is already a Store with the given StoreId");
             }
         if(checkStore)
             return false;
@@ -42,7 +44,7 @@ public class StoreService implements GenericService<Store> {
                 break;
             }
         if(!checkStore)
-            return null;
+            throw new ExceptionInvalidValue("There is no store with the given StoreId");
         if(!Stock.containsKey(storeId)){
             List<Pair<Integer, Product>>  s = new ArrayList<>();
             s.add(new Pair<>(count, product));
@@ -72,7 +74,7 @@ public class StoreService implements GenericService<Store> {
 
     public Set<Product> GetStockGraterThan0(int storeId){
         if(!CheckStore(storeId))
-            return null;
+            throw new ExceptionInvalidValue("There is no store with the given StoreId");
         List<Pair<Integer, Product>> s = Stock.get(storeId);
         Set<Product> setP = new HashSet<>();
         for(Pair<Integer, Product> st : s){
@@ -85,7 +87,7 @@ public class StoreService implements GenericService<Store> {
     public void checkStock(int storeId){ //this will remove a product from the list if it's stock
         // is 0
         if (!CheckStore(storeId))
-            return;
+            throw new ExceptionInvalidValue("There is no store with the given StoreId");
         List<Pair<Integer, Product>> s = Stock.get(storeId);
         for(int i = 0; i < s.size(); i++){
             if(s.get(i).First() == 0) {
@@ -97,7 +99,7 @@ public class StoreService implements GenericService<Store> {
 
     public boolean removeStock(int storeId, int productId, int count){
         if(!CheckStore(storeId))
-            return false;
+            throw new ExceptionInvalidValue("There is no store with the given StoreId");
         List<Pair<Integer, Product>> s = Stock.get(storeId);
         for(Pair<Integer, Product> st : s) {
             if(st.Second().getProductId() == productId){
@@ -111,7 +113,7 @@ public class StoreService implements GenericService<Store> {
 
     public boolean checkStockOfAProduct(int storeId, int productId) {
         if (!CheckStore(storeId))
-            return false;
+            throw new ExceptionInvalidValue("There is no store with the given StoreId");
         List<Pair<Integer, Product>> s = Stock.get(storeId);
         for (Pair<Integer, Product> st : s) {
             if (st.Second().getProductId() == productId && st.First() > 0) {
