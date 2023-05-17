@@ -1,10 +1,12 @@
 import Exceptions.ExceptionInvalidValue;
 import Models.*;
+import Services.AuditService;
 import Services.StoreService;
 import Utils.Pair;
 import Utils.Resolution;
 
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 public class Main {
@@ -20,10 +22,12 @@ public class Main {
             System.out.println("The given Store Id is already in use, pick another one: ");
             storeId = scanner.nextInt();
         }
+        AuditService.getInstance().writeMessage("A store with the id: " + storeId + " And the address " + Address + " was Added");
         System.out.println("Store Added");
     }
 
     public static void getAllStores(){
+        AuditService.getInstance().writeMessage("A list of all the stores was printed");
         List<Store> stores = s.GetAll();
         for(Store st : stores){
             System.out.println("Store address: " + st.getAddress());
@@ -47,6 +51,11 @@ public class Main {
         System.out.println("Please provide the name of the new product");
         scanner.nextLine();
         String name = scanner.nextLine();
+        AuditService.getInstance().writeMessage("A product with the following characteristics was added {"
+                                                + " storeId: " + storeId
+                                                + " count: " + count
+                                                + " productId: " + productId
+                                                + " price: " + price + " }");
         if(input == "Coffee"){
             System.out.println("Please provide the Water tank size of the coffee maker in cl:");
             int size = scanner.nextInt();
@@ -176,6 +185,7 @@ public class Main {
             System.out.println("The given Store Id doesn't exist, pick another one: ");
             storeId = scanner.nextInt();
         }
+        AuditService.getInstance().writeMessage("The stock of the store with the store id: " + storeId + " was checked");
         List<Pair<Integer, Product>> stock = s.CheckStock(storeId);
         for(Pair<Integer, Product> st : stock){
             System.out.println("Product Name: " + st.Second().getName());
@@ -187,43 +197,53 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        int input;
+        int input = 2;
+        AuditService.getInstance().writeMessage("The program has started");
         do{
-            System.out.println("1. Add a Store");
-            System.out.println("2. Get all stores");
-            System.out.println("3. Add a CoffeeMaker");
-            System.out.println("4. Add a Fridge");
-            System.out.println("5. Add a Monitor");
-            System.out.println("6. Add a Peripheral");
-            System.out.println("7. Add a PersonalComputer");
-            System.out.println("8. Add a Phone");
-            System.out.println("9. Add a VacuumCleaner");
-            System.out.println("10. Add a WashingMachine");
-            System.out.println("11. Check all the products in a Store");
-            input = scanner.nextInt();
             try {
-                switch (input) {
-                    case 1 -> AddStore();
-                    case 2 -> getAllStores();
-                    case 3 -> AddProduct("Coffee");
-                    case 4 -> AddProduct("Fridge");
-                    case 5 -> AddProduct("Monitor");
-                    case 6 -> AddProduct("Peripheral");
-                    case 7 -> AddProduct("PersonalComputer");
-                    case 8 -> AddProduct("Phone");
-                    case 9 -> AddProduct("VacuumCleaner");
-                    case 10 -> AddProduct("WashingMachine");
-                    case 11 -> getAllProducts();
+                System.out.println("1. Add a Store");
+                System.out.println("2. Get all stores");
+                System.out.println("3. Add a CoffeeMaker");
+                System.out.println("4. Add a Fridge");
+                System.out.println("5. Add a Monitor");
+                System.out.println("6. Add a Peripheral");
+                System.out.println("7. Add a PersonalComputer");
+                System.out.println("8. Add a Phone");
+                System.out.println("9. Add a VacuumCleaner");
+                System.out.println("10. Add a WashingMachine");
+                System.out.println("11. Check all the products in a Store");
+                input = scanner.nextInt();
+                try {
+                    switch (input) {
+                        case 1 -> AddStore();
+                        case 2 -> getAllStores();
+                        case 3 -> AddProduct("Coffee");
+                        case 4 -> AddProduct("Fridge");
+                        case 5 -> AddProduct("Monitor");
+                        case 6 -> AddProduct("Peripheral");
+                        case 7 -> AddProduct("PersonalComputer");
+                        case 8 -> AddProduct("Phone");
+                        case 9 -> AddProduct("VacuumCleaner");
+                        case 10 -> AddProduct("WashingMachine");
+                        case 11 -> getAllProducts();
+                    }
+                } catch (ExceptionInvalidValue m) {
+                    System.out.println(m);
+                    scanner.nextLine();
+                    input = 12;
                 }
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            } catch (InputMismatchException e){
+                System.out.println(e);
+                scanner.nextLine();
+                input = 12;
+            } catch (Exception e){
+                System.out.println(e);
+                scanner.nextLine();
+                input = 12;
             }
-            catch(ExceptionInvalidValue m){
-                System.out.println(m);
-            }
-            for(int clear = 0; clear < 1000; clear++)
-            {
-                System.out.println("\b") ;
-            } // nimic de pe internet nu mergea ca
-            // sa curat consola
         }while(input != 0);
+        AuditService.getInstance().writeMessage("The program has stopped");
     }
 }
