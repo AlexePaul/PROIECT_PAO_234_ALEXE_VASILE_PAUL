@@ -9,6 +9,11 @@ public class CoffeeMaker extends Product{
         return "Coffee Maker";
     }
 
+    @Override
+    public String getCSVFormat(){
+        return getBaseCSVString() + WaterTankSize;
+    }
+
     public CoffeeMaker(int productId, int price, String name, int waterTankSize) {
         super(productId, price, name);
         WaterTankSize = waterTankSize;

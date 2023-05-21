@@ -9,6 +9,10 @@ public class VacuumCleaner extends Product{
     public String getProductType() {
         return "Vaccum Cleaner";
     }
+    @Override
+    public String getCSVFormat(){
+        return getBaseCSVString() + ", " + Weight + ", " + Color + ", " + Power;
+    }
 
     public VacuumCleaner(int productId, int price, String name, int weight, String color,
                          int power) {

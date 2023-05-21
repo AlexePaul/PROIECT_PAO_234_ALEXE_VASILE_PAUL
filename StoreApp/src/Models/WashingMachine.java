@@ -12,6 +12,11 @@ public class WashingMachine extends Product{
         return "Washing Machine";
     }
 
+    @Override
+    public String getCSVFormat(){
+        return getBaseCSVString() + ", " + Size + ", " + Width + ", " + Height + ", " + Depth;
+    }
+
     public WashingMachine(int productId, int price, String name, int size, int width, int height,
                           int depth) {
         super(productId, price, name);

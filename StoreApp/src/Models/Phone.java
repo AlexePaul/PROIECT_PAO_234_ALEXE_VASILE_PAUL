@@ -16,6 +16,11 @@ public class Phone extends Product {
         return "Phone";
     }
 
+    @Override
+    public String getCSVFormat(){
+        return getBaseCSVString() + ", " + CPU + ", " + ScreenResolution.getWidth() + ", " + ScreenResolution.getHeight() + ", " + ScreenRefreshRate + ", " + Storage + ", " + Color;
+    }
+
     public Phone(int productId, int price, String name, String CPU, Resolution screenResolution,
                  int screenRefreshRate, int storage, String color) {
         super(productId, price, name);

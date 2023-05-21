@@ -1,6 +1,7 @@
 import Exceptions.ExceptionInvalidValue;
 import Models.*;
 import Services.AuditService;
+import Services.ProductService;
 import Services.StoreService;
 import Utils.Pair;
 import Utils.Resolution;
@@ -11,7 +12,9 @@ import java.util.List;
 import java.util.Scanner;
 public class Main {
     public static Scanner scanner = new Scanner(System.in);
-    public static StoreService s = new StoreService();
+    public static StoreService s = StoreService.getInstance();
+    public static ProductService p = ProductService.getInstance();
+
     public static void AddStore(){
         scanner.nextLine();
         System.out.println("Please provide the Address for the store: ");
@@ -199,6 +202,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         int input = 2;
         AuditService.getInstance().writeMessage("The program has started");
+        s.ReadFromCSV();
+        p.ReadFromCSV();
         do{
             try {
                 System.out.println("1. Add a Store");
@@ -245,5 +250,7 @@ public class Main {
             }
         }while(input != 0);
         AuditService.getInstance().writeMessage("The program has stopped");
+        s.SaveIntoCSV();
+        p.SaveIntoCSV();
     }
 }

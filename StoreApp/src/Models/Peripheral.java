@@ -8,6 +8,10 @@ public class Peripheral extends Product{
     public String getProductType() {
         return "Peripheral";
     }
+    @Override
+    public String getCSVFormat(){
+        return getBaseCSVString() + ", " + Wireless + ", " + Connection;
+    }
 
     public Peripheral(int productId, int price, String name, boolean wireless, String connection) {
         super(productId, price, name);

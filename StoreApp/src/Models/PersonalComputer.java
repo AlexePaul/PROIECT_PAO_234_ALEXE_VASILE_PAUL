@@ -12,6 +12,10 @@ public class PersonalComputer extends Product {
     public String getProductType() {
         return "PersonalComputer/Laptop";
     }
+    @Override
+    public String getCSVFormat(){
+        return getBaseCSVString() + ", " + Ram + ", " + Storage + ", " + CPU + ", " + GPU + ", " + PSU;
+    }
 
     public PersonalComputer(int productId, int price, String name, int ram, int storage, String CPU,
                             String GPU, String PSU) {

@@ -12,6 +12,11 @@ public class Monitor extends Product{
         return "Monitor";
     }
 
+    @Override
+    public String getCSVFormat(){
+        return getBaseCSVString() + ", " + Res.getWidth() + ", " + Res.getHeight() + ", " + RefreshRate + ", " + Size;
+    }
+
     public Monitor(int productId, int price, String name, Resolution res, int refreshRate,
                    int size) {
         super(productId, price, name);

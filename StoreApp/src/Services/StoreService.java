@@ -5,16 +5,73 @@ import Models.Product;
 import Models.Store;
 import Utils.Pair;
 
+import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static java.lang.Math.max;
 @SuppressWarnings("unused")
 public class StoreService implements GenericService<Store> {
+
+    static StoreService instance = null;
     List<Store> Stores = new ArrayList<>();
     TreeMap<Integer, List<Pair<Integer, Product>>> Stock = new TreeMap<>();
+
+    private StoreService(){}
+
+    public static StoreService getInstance(){
+        if(instance == null)
+            instance = new StoreService();
+        return instance;
+    }
     @Override
     public List<Store> GetAll(){
         return Stores;
+    }
+
+    @Override
+    public void SaveIntoCSV(){
+            try{
+                File file = new File("./StoreApp/src/CSV/store.csv");
+                if (!file.exists() || file.isDirectory()) {
+                    if (file.createNewFile()) {
+                        System.out.println("The store CSV file was created!");
+                    }
+                }
+                BufferedWriter writer = new BufferedWriter(new FileWriter("./StoreApp/src/CSV/store.csv", false));
+
+                for(Store st : Stores) {
+                    writer.write(st.getStoreId() + ", "+ st.getAddress() + "\n");
+                }
+                writer.close();
+
+            }
+            catch(IOException m){
+                System.out.println("StoreFile Error!" + m);
+            }
+    }
+
+    @Override
+    public void ReadFromCSV() {
+        try{
+            File file = new File("./StoreApp/src/CSV/store.csv");
+            if (!file.exists() || file.isDirectory()) {
+                if (file.createNewFile()) {
+                    System.out.println("The store CSV file was created!");
+                }
+            }
+            BufferedReader reader = new BufferedReader(new FileReader("./StoreApp/src/CSV/store.csv"));
+            String store;
+
+            while ((store = reader.readLine()) != null) {
+                Store st = new Store(store.split(",")[1].trim(), Integer.parseInt(store.split(",")[0].trim()));
+                AddStore(st);
+            }
+        }
+        catch(IOException m){
+            System.out.println("Store Service File Error!" + m);
+        }
     }
 
     public boolean CheckStore(int storeId){
@@ -122,6 +179,8 @@ public class StoreService implements GenericService<Store> {
         }
         return false;
     }
+
+    public List<Pair<Integer, Product>> GetStockOfAStore(int storeId) {return Stock.get(storeId);}
 
     public int numberOfStores() {return Stores.size();}
     public int numberOfProductsInStore(int storeId){return Stock.get(storeId).size();}
