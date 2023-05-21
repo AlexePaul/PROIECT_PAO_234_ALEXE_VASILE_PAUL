@@ -19,9 +19,13 @@ abstract public class Product {
 
     public abstract String getCSVFormat();
 
+    public abstract String getDBFormat();
+
     public String getBaseCSVString(){
         return ProductId + ", " + Price +", " + Name + ", ";
     }
+
+    public String getBaseDBString() {return ProductId + ", " + Price + ", '" + Name + "', ";}
     public String getName() {
         return Name;
     }

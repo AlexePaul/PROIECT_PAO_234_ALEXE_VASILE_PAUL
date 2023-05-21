@@ -24,7 +24,11 @@ public class Fridge extends Product{
     }
     @Override
     public String getCSVFormat(){
-        return getBaseCSVString() + ", " + Size + ", " + Width + ", " + Height + ", " + Depth + ", " + HasFreezer;
+        return getBaseCSVString() + Size + ", " + Width + ", " + Height + ", " + Depth + ", " + HasFreezer;
+    }
+    @Override
+    public String getDBFormat(){
+        return getBaseDBString()  + Size + ", " + Width + ", " + Height + ", " + Depth + ", " + HasFreezer;
     }
 
     public int getSize() {

@@ -14,9 +14,12 @@ public class WashingMachine extends Product{
 
     @Override
     public String getCSVFormat(){
-        return getBaseCSVString() + ", " + Size + ", " + Width + ", " + Height + ", " + Depth;
+        return getBaseCSVString() + Size + ", " + Width + ", " + Height + ", " + Depth;
     }
-
+    @Override
+    public String getDBFormat(){
+        return getBaseDBString() + Size + ", " + Width + ", " + Height + ", " + Depth;
+    }
     public WashingMachine(int productId, int price, String name, int size, int width, int height,
                           int depth) {
         super(productId, price, name);

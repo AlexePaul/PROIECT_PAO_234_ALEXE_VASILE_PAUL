@@ -14,7 +14,11 @@ public class PersonalComputer extends Product {
     }
     @Override
     public String getCSVFormat(){
-        return getBaseCSVString() + ", " + Ram + ", " + Storage + ", " + CPU + ", " + GPU + ", " + PSU;
+        return getBaseCSVString() + Ram + ", " + Storage + ", " + CPU + ", " + GPU + ", " + PSU;
+    }
+    @Override
+    public String getDBFormat(){
+        return getBaseDBString()  + Ram + ", " + Storage + ", '" + CPU + "', '" + GPU + "',' " + PSU+"'";
     }
 
     public PersonalComputer(int productId, int price, String name, int ram, int storage, String CPU,

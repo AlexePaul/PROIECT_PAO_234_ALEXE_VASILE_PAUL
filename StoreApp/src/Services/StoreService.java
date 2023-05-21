@@ -1,11 +1,13 @@
 package Services;
 
+import Config.DbConfig;
 import Exceptions.ExceptionInvalidValue;
 import Models.Product;
 import Models.Store;
 import Utils.Pair;
 
 import java.io.*;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -51,7 +53,6 @@ public class StoreService implements GenericService<Store> {
                 System.out.println("StoreFile Error!" + m);
             }
     }
-
     @Override
     public void ReadFromCSV() {
         try{
@@ -71,6 +72,37 @@ public class StoreService implements GenericService<Store> {
         }
         catch(IOException m){
             System.out.println("Store Service File Error!" + m);
+        }
+    }
+
+    @Override
+    public void SaveIntoDB(){
+        try {
+            Statement statement = DbConfig.getInstance().getDbConnection().createStatement();
+            String query = "DELETE FROM JavaDB.Store WHERE 1=1;";
+            statement.executeUpdate(query);
+            for(Store st : Stores) {
+                query = "INSERT INTO JavaDB.Store (StoreId, Address) VALUES (" + st.getStoreId() + ", '" + st.getAddress() + "')";
+                statement.executeUpdate(query);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Override
+    public void ReadFromDB(){
+        try {
+            Statement statement = DbConfig.getInstance().getDbConnection().createStatement();
+            String query = "SELECT * FROM JavaDB.Store";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                Store st = new Store(resultSet.getString("Address"), Integer.parseInt(resultSet.getString("StoreId")));
+                AddStore(st);
+            }
+        }
+        catch (SQLException e) {
+            System.out.println("A aparut o problema la incarcarea Agentiilor Imobiliare din baza de date.");
         }
     }
 
@@ -141,8 +173,7 @@ public class StoreService implements GenericService<Store> {
         return setP;
     }
 
-    public void checkStock(int storeId){ //this will remove a product from the list if it's stock
-        // is 0
+    public void checkStock(int storeId){ //this will remove a product from the list if it's stock is 0
         if (!CheckStore(storeId))
             throw new ExceptionInvalidValue("There is no store with the given StoreId");
         List<Pair<Integer, Product>> s = Stock.get(storeId);

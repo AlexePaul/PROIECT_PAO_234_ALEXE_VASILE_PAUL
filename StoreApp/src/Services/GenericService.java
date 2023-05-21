@@ -9,4 +9,8 @@ public interface GenericService<Type> {
     void SaveIntoCSV();
 
     void ReadFromCSV();
+
+    void SaveIntoDB();
+
+    void ReadFromDB();
 }

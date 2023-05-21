@@ -11,9 +11,12 @@ public class VacuumCleaner extends Product{
     }
     @Override
     public String getCSVFormat(){
-        return getBaseCSVString() + ", " + Weight + ", " + Color + ", " + Power;
+        return getBaseCSVString() + Weight + ", " + Color + ", " + Power;
     }
-
+    @Override
+    public String getDBFormat(){
+        return getBaseDBString() + Weight + ",' " + Color + "', " + Power;
+    }
     public VacuumCleaner(int productId, int price, String name, int weight, String color,
                          int power) {
         super(productId, price, name);

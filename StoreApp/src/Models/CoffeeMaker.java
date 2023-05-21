@@ -14,6 +14,11 @@ public class CoffeeMaker extends Product{
         return getBaseCSVString() + WaterTankSize;
     }
 
+    @Override
+    public String getDBFormat(){
+        return getBaseDBString() + WaterTankSize;
+    }
+
     public CoffeeMaker(int productId, int price, String name, int waterTankSize) {
         super(productId, price, name);
         WaterTankSize = waterTankSize;

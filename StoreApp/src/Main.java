@@ -252,5 +252,7 @@ public class Main {
         AuditService.getInstance().writeMessage("The program has stopped");
         s.SaveIntoCSV();
         p.SaveIntoCSV();
+        s.SaveIntoDB();
+        p.SaveIntoDB();
     }
 }

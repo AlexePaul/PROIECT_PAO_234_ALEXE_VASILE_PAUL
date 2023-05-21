@@ -10,9 +10,12 @@ public class Peripheral extends Product{
     }
     @Override
     public String getCSVFormat(){
-        return getBaseCSVString() + ", " + Wireless + ", " + Connection;
+        return getBaseCSVString() + Wireless + ", " + Connection;
     }
-
+    @Override
+    public String getDBFormat(){
+        return getBaseDBString() + Wireless + ", '" + Connection+"'";
+    }
     public Peripheral(int productId, int price, String name, boolean wireless, String connection) {
         super(productId, price, name);
         Wireless = wireless;
